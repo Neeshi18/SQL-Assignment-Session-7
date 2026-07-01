@@ -1,0 +1,53 @@
+Use food_delivery_db;
+select user_id, count(order_id) as total_orders from food_orders group by user_id;
+Create table transactions (
+    transaction_id INT PRIMARY KEY,
+    user_id INT,
+    amount DECIMAL(10,2),
+    payment_method VARCHAR(30)
+);
+insert into transactions value
+(1,101,450,'UPI'),
+(2,102,700,'Credit Card'),
+(3,103,350,'UPI'),
+(4,104,1200,'Debit Card'),
+(5,101,800,'Credit Card'),
+(6,102,500,'Cash'),
+(7,105,950,'UPI'),
+(8,106,400,'Cash');
+select payment_method, sum(amount) as total_amount_spent from transactions group by payment_method;
+Use music_streaming_db;
+CREATE TABLE movie (
+    movie_id INT PRIMARY KEY,
+    movie_name VARCHAR(100),
+    genre VARCHAR(50),
+    box_office_collection DECIMAL(12,2)
+);
+INSERT INTO movie VALUES
+(1,'KGF','Action',550000000),
+(2,'Pathaan','Action',650000000),
+(3,'3 Idiots','Comedy',350000000),
+(4,'Hera Pheri','Comedy',120000000),
+(5,'The Kashmir Files','Drama',250000000),
+(6,'Dangal','Drama',750000000),
+(7,'Bhool Bhulaiyaa','Horror',90000000),
+(8,'Stree','Horror',150000000);
+select genre, sum(box_office_collection) as total_collection from movie group by genre having sum(box_office_collection) > 100000000;
+CREATE TABLE playlist (
+    playlist_id INT,
+    user_id INT,
+    song_id INT,
+    duration INT
+);
+INSERT INTO playlist VALUES
+(1,101,1001,1800),
+(1,101,1002,2200),
+(1,101,1003,3500),
+(2,102,1004,1500),
+(2,102,1005,1800),
+(3,103,1006,4000),
+(3,103,1007,3500),
+(4,104,1008,2500),
+(4,104,1009,2000),
+(4,104,1010,1800);
+select user_id, sum(duration) as total_duration from spotify_playlists group by user_id having sum(duration) > 7200;
